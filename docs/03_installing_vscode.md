@@ -59,10 +59,8 @@ Search for:
 Remote - SSH
 
 Install the extension published by Microsoft.
-<img width="975" height="580" alt="image" src="https://github.com/user-attachments/assets/e7ac2b92-98a2-480e-9837-db7162422b97" />
 
-*Insert screenshot here.*![Uploading image.png…]()
-
+*Insert screenshot here.*
 
 ---
 
