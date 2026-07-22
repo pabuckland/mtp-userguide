@@ -60,7 +60,7 @@ Remote - SSH
 
 Install the extension published by Microsoft.
 
-*Insert screenshot here.*
+![Remote SSH Extension](../images/remote_ssh_extension.png)
 
 ---
 
