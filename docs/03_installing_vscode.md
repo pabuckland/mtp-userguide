@@ -104,7 +104,7 @@ Paste the contents of your public key into the SSH key field.
 
 Select **Add Key**.
 
-*Insert screenshot here.*
+![DRAC SSH Keys](../images/DRAC_SSH_Keys.png)
 
 ---
 
