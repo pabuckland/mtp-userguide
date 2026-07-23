@@ -1,4 +1,4 @@
-# Tutorial 1: Installing Visual Studio Code
+# Tutorial 1: VS Code Installation and DRAC Connection
 
 ## Objective
 
