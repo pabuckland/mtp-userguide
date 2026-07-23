@@ -145,39 +145,76 @@ You can now execute Linux commands directly on the cluster.
 
 ## Step 7 – Verify the Connection
 
-Run:
+After connecting to Trillium, confirm that the connection was successful.
+
+Open the terminal and run:
 
 ```bash
 pwd
 ```
 
-You should see your home directory.
+This command displays your current directory. After logging in, you should see your DRAC home directory, which will look similar to:
 
-Next run:
+```text
+/home/abc123
+```
+
+where `abc123` is your Alliance username.
+
+Next, run:
 
 ```bash
 hostname
 ```
 
-The output should indicate that you are connected to one of the Trillium login nodes.
+This command shows the name of the computer you are connected to. A successful connection should display a Trillium login node, such as:
 
-Congratulations! You are now connected to the cluster.
+```text
+trillium-login1
+```
 
+or
+
+```text
+trillium-login2
+```
+
+These commands confirm that you are connected to the Trillium cluster rather than your local computer.
+
+![Successful Trillium Login](../images/trillium_login.png)
+
+**Figure X.** Example of a successful connection to Trillium through VS Code.
+
+In the future, you can reconnect to Trillium by selecting:
+
+**Remote Connection → Connect to Host → your saved Trillium connection**
+
+VS Code will automatically use your saved SSH key to authenticate.
+
+Congratulations! You are now connected to the Trillium cluster and ready to begin working with files and running commands.
 ---
 
 ## Common Issues
 
 ### Permission denied (publickey)
 
-Your SSH key may not have been uploaded correctly.
+Check that:
+
+- Your SSH key was added correctly to DRAC.
+- Your username is correct.
+- You are connecting to the correct cluster.
 
 ### Could not establish connection
 
-Verify that your username and cluster name are correct.
+Verify:
+
+- Your internet connection.
+- Your cluster name.
+- Your Alliance username.
 
 ### Remote - SSH not installed
 
-Ensure the Microsoft Remote - SSH extension is installed.
+Ensure that the Microsoft **Remote - SSH** extension is installed in VS Code.
 
 ---
 
@@ -185,4 +222,4 @@ Ensure the Microsoft Remote - SSH extension is installed.
 
 Continue to:
 
-**Tutorial 2 – Connecting to DRAC**
+**Tutorial 2 – Linux Basics**
