@@ -17,17 +17,11 @@ By the end of this tutorial, you will understand:
 
 # What is a Repository?
 
-A repository (or "repo") is a collection of files used to store and manage software projects.
+A repository (repo) is a folder that contains all the files needed for a software project.
 
-For MTP, repositories typically contain:
+For MTP, repositories contain the code, examples, and documentation needed to train and use Moment Tensor Potentials.
 
-- Source code
-- Example input files
-- Training data
-- Documentation
-- Scripts for running calculations
-
-Instead of downloading individual files manually, researchers typically clone repositories using Git.
+Repositories can be downloaded to DRAC using Git, allowing users to access and work with the same software and examples provided by the developers.
 
 ---
 
