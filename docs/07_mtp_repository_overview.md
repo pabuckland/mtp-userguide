@@ -172,29 +172,6 @@ ls
 
 ---
 
-# Checking Repository Contents
-
-Most repositories contain files such as:
-
-```
-README.md
-examples/
-scripts/
-source/
-input files
-```
-
-The `README.md` file usually contains important instructions from the developers.
-
-Before running any code:
-
-1. Read the README file.
-2. Understand the purpose of each folder.
-3. Identify required software dependencies.
-4. Test example calculations first.
-
----
-
 # Working with Repositories on DRAC
 
 When using DRAC, repositories should normally be stored in your project or scratch directory rather than your home directory.
