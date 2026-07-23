@@ -219,20 +219,6 @@ Be careful: deleted files generally cannot be recovered.
 
 ---
 
-# 9. Organizing MTP Projects
-
-A typical MTP project may look like:
-
-```
-MTP_project/
-
-├── training_data/
-├── potential/
-├── lammps/
-├── results/
-└── scripts/
-```
-
 Keeping simulations organized makes it easier to reproduce calculations.
 
 ---
