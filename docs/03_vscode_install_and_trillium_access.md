@@ -177,8 +177,6 @@ These commands confirm that you are connected to the Trillium cluster rather tha
 
 ![Successful Trillium Login](../images/trillium_login.png)
 
-**Figure X.** Example of a successful connection to Trillium through VS Code.
-
 In the future, you can reconnect to Trillium by selecting:
 
 **Remote Connection → Connect to Host → your saved Trillium connection**
