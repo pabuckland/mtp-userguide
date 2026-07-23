@@ -173,12 +173,6 @@ This command shows the name of the computer you are connected to. A successful c
 trillium-login1
 ```
 
-or
-
-```text
-trillium-login2
-```
-
 These commands confirm that you are connected to the Trillium cluster rather than your local computer.
 
 ![Successful Trillium Login](../images/trillium_login.png)
