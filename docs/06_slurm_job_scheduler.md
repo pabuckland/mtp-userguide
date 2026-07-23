@@ -203,19 +203,6 @@ For longer simulations, a batch job (`sbatch`) is recommended.
 
 ---
 
-# Common Slurm Commands
-
-| Command | Purpose |
-|----------|---------|
-| `salloc` | Request an interactive compute session |
-| `sbatch` | Submit a batch job |
-| `squeue -u $USER` | View running and queued jobs |
-| `sacct` | View completed jobs |
-| `scancel JOB_ID` | Cancel a job |
-| `exit` | Leave an interactive session |
-
----
-
 # Best Practices
 
 When using Slurm:
