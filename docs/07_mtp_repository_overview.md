@@ -146,39 +146,6 @@ Apply MTP in practical simulations
 
 ---
 
-# Organizing MTP Projects on DRAC
-
-A recommended project structure is:
-
-```
-MTP_project/
-
-├── mlip-2/
-│
-├── mlip-3/
-│
-├── mtp-demo/
-│
-├── training_data/
-│
-├── potentials/
-│
-├── simulations/
-│
-└── results/
-```
-
-This organization separates:
-
-- Software repositories
-- Training files
-- Generated potentials
-- Simulation outputs
-
-Keeping files organized is especially important when running multiple simulations on an HPC system.
-
----
-
 # Cloning a Repository
 
 Repositories can be downloaded using Git.
