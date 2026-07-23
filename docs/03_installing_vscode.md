@@ -112,7 +112,7 @@ Select **Add Key**.
 
 Open VS Code.
 
-Click the **Remote Connection** button in the lower-left corner.
+Click the **Remote Connection** button in the lower-left corner (the symbol should ressemble ![VSCODE Remote Connection Button](../images/VSCODE_Remote_Connection.png)).
 
 Choose:
 
