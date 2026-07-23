@@ -2,8 +2,6 @@
 
 Before beginning this guide, you should have the following:
 
-## Required Accounts
-
 - Digital Research Alliance of Canada (DRAC) account
 - Access to the Trillium cluster (or another Alliance cluster)
 - GitHub account
