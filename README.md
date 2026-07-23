@@ -12,15 +12,14 @@ The guide is designed to bridge the gap between setting up your computer and suc
 
 1. Introduction
 2. Prerequisites
-3. Installing Visual Studio Code
-4. Connecting to DRAC (Trillium)
-5. Linux Basics
-6. HPC and Slurm
-7. Repository Overview
-8. MLIP-2 Tutorials
-9. MLIP-3 Overview
-10. LAMMPS Integration
-11. Troubleshooting
+3. VS Code Installation and DRAC Connection
+4. Linux Basics
+5. HPC and Slurm
+6. Repository Overview
+7. MLIP-2 Tutorials
+8. MLIP-3 Overview
+9. LAMMPS Integration
+10. Troubleshooting
 
 ---
 
