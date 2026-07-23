@@ -219,10 +219,6 @@ Be careful: deleted files generally cannot be recovered.
 
 ---
 
-Keeping simulations organized makes it easier to reproduce calculations.
-
----
-
 ## Next Tutorial
 
 The next tutorial introduces High Performance Computing (HPC) concepts and explains how DRAC clusters are structured.
