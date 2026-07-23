@@ -188,30 +188,6 @@ VS Code will automatically use your saved SSH key to authenticate.
 Congratulations! You are now connected to the Trillium cluster and ready to begin working with files and running commands.
 ---
 
-## Common Issues
-
-### Permission denied (publickey)
-
-Check that:
-
-- Your SSH key was added correctly to DRAC.
-- Your username is correct.
-- You are connecting to the correct cluster.
-
-### Could not establish connection
-
-Verify:
-
-- Your internet connection.
-- Your cluster name.
-- Your Alliance username.
-
-### Remote - SSH not installed
-
-Ensure that the Microsoft **Remote - SSH** extension is installed in VS Code.
-
----
-
 ## Next Tutorial
 
 Continue to:
