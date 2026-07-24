@@ -225,23 +225,6 @@ squeue -u $USER
 
 ---
 
-# Typical HPC Workflow
-
-A typical workflow on a DRAC cluster is:
-
-1. Connect to the cluster using SSH or VS Code.
-2. Navigate to your project directory.
-3. Prepare input files and scripts.
-4. Request computing resources using Slurm.
-5. Run the simulation on compute nodes.
-6. Analyze the output files.
-
-For small tests, an interactive job (`salloc`) is useful.
-
-For longer simulations, a batch job (`sbatch`) is recommended.
-
----
-
 # Best Practices
 
 When using Slurm:
