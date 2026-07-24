@@ -1,4 +1,4 @@
-# Tutorial 6 – Using the Slurm Job Scheduler
+# Tutorial 7 – Using the Slurm Job Scheduler
 
 ## Overview
 
@@ -11,6 +11,7 @@ By the end of this tutorial, you will understand:
 - What Slurm is
 - Why Slurm is used
 - The difference between interactive and batch jobs
+- How to request computing resources
 - Common Slurm commands
 - How to submit and manage jobs
 
@@ -93,10 +94,18 @@ Example batch script:
 #SBATCH --job-name=test_job
 #SBATCH --time=01:00:00
 #SBATCH --ntasks=1
+#SBATCH --mem=4G
 
 echo "Hello from Trillium!"
 hostname
 ```
+
+This script requests:
+
+- A job name (`test_job`)
+- 1 hour of runtime
+- 1 task (CPU)
+- 4 GB of memory
 
 Save this file as:
 
@@ -111,6 +120,37 @@ sbatch job.sh
 ```
 
 Slurm will assign the job a Job ID and place it into the queue.
+
+---
+
+# Requesting Memory
+
+Memory (RAM) is the amount of temporary storage available to a program while it is running.
+
+Large simulations require more memory because they contain more data, such as:
+
+- Atom positions
+- Forces
+- Velocities
+- Simulation information
+
+Memory can be requested in a Slurm job script using:
+
+```bash
+#SBATCH --mem=4G
+```
+
+This requests 4 GB of memory for the entire job.
+
+For jobs using multiple CPU cores, memory can also be requested per CPU core:
+
+```bash
+#SBATCH --mem-per-cpu=2G
+```
+
+This requests 2 GB of memory for each CPU core assigned to the job.
+
+The amount of memory required depends on the size and complexity of the simulation.
 
 ---
 
@@ -141,7 +181,6 @@ The job status indicates whether your job is:
 
 - Running (`R`)
 - Pending (`PD`)
-- Completed
 
 ---
 
@@ -207,7 +246,7 @@ For longer simulations, a batch job (`sbatch`) is recommended.
 
 When using Slurm:
 
-- Do not run (large) simulations on login nodes.
+- Do not run large simulations on login nodes.
 - Request only the resources your job requires.
 - Test new scripts with small jobs first.
 - Monitor your jobs regularly.
