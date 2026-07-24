@@ -312,19 +312,6 @@ squeue -u $USER
 
 ---
 
-# Summary
-
-In this tutorial, you learned:
-
-- What LAMMPS is
-- How MTP potentials are used in simulations
-- The role of the `.mtp` potential file
-- The structure of an MTP-LAMMPS project
-- How to submit MTP simulations using Slurm
-- How to monitor and troubleshoot simulations
-
----
-
 ## Next Tutorial
 
 The next tutorial introduces **training MTPs for new materials**, including modifying training datasets and adapting MTP models for different metals, alloys, and ionic systems.
