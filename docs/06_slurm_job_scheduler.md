@@ -1,4 +1,4 @@
-# Tutorial 7 – Using the Slurm Job Scheduler
+# Tutorial 6 – Using the Slurm Job Scheduler
 
 ## Overview
 
