@@ -264,54 +264,6 @@ It is recommended to begin with smaller test simulations before increasing syste
 
 ---
 
-# Troubleshooting Common Issues
-
-## Simulation Runs Out of Memory
-
-Possible causes:
-
-- Too many atoms
-- Insufficient memory requested
-
-Solution:
-
-Increase memory in the Slurm script:
-
-```bash
-#SBATCH --mem=16G
-```
-
----
-
-## LAMMPS Cannot Find the Potential
-
-Possible causes:
-
-- Incorrect file path
-- Missing potential file
-
-Check that:
-
-- `potential.mtp` exists
-- The LAMMPS input file points to the correct location
-
----
-
-## Job Does Not Start
-
-Possible causes:
-
-- Insufficient cluster resources
-- Incorrect Slurm settings
-
-Check job status:
-
-```bash
-squeue -u $USER
-```
-
----
-
 ## Next Tutorial
 
 The next tutorial introduces **training MTPs for new materials**, including modifying training datasets and adapting MTP models for different metals, alloys, and ionic systems.
