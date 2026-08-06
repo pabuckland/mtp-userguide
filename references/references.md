@@ -96,10 +96,3 @@ Practical examples of MTP applied to simulations, including input file structure
 # Related Tutorial
 
 - **Potential Pruning Tutorial** — *link/citation to be added*
-
----
-
-## Next Tutorial
-
-Continue to:
-**Glossary**
