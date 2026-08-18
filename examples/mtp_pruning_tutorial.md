@@ -36,16 +36,19 @@ cd ~/scratch/my-run
 
 wget -O data/training_set.cfg \
 "https://gitlab.com/Kazongogit/MTPu/-/raw/main/datasets/Unified_training_set2_1159.cfg"
+```
 
 Check that the file was downloaded:
 
 ```bash
 ls -lh data/training_set.cfg
+```
 
 The rest of this tutorial refers to the dataset as:
 
 ```bash
 data/training_set.cfg
+```
 
 ---
 
