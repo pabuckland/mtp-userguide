@@ -14,6 +14,41 @@ This tutorial walks through training and pruning a Moment Tensor Potential (MTP)
 
 ---
 
+## Recommended Training Dataset
+
+If you do not already have a training dataset, the following dataset is recommended for following this tutorial:
+
+**Unified_training_set2_1159.cfg**
+
+The dataset is provided by the MTPu project and can be found here:
+
+https://gitlab.com/Kazongogit/MTPu/-/blob/main/datasets/Unified_training_set2_1159.cfg?ref_type=headsis
+
+This is an MLIP `.cfg` dataset containing 1159 structures and can be used as an example dataset for training and pruning an MTP.
+
+### Download the dataset
+
+From the Trillium login node, download the dataset directly into your working directory:
+
+```bash
+mkdir -p ~/scratch/my-run/data
+cd ~/scratch/my-run
+
+wget -O data/training_set.cfg \
+"https://gitlab.com/Kazongogit/MTPu/-/raw/main/datasets/Unified_training_set2_1159.cfg"
+
+Check that the file was downloaded:
+
+```bash
+ls -lh data/training_set.cfg
+
+The rest of this tutorial refers to the dataset as:
+
+```bash
+data/training_set.cfg
+
+---
+
 ## 1. Set up your working folder
 
 ```bash
