@@ -1,4 +1,4 @@
-# MTP Training Workflow (Trillium / Alliance Canada)
+# MTP Training Workflow 
 
 This tutorial walks through training a Moment Tensor Potential (MTP) from a training dataset using the standard MLIP-3 `mlp` executable on a SLURM cluster (Trillium).
 
@@ -625,34 +625,3 @@ where:
 - `training_set.cfg` = your reference training data
 - `18_template.almtp` = your starting MTP template
 - `18_trained.almtp` = your trained MTP
-
-## 20. Next Steps
-
-Once the MTP has been successfully trained, you can:
-
-- Validate the MTP against additional configurations.
-- Calculate energies and forces using `mlp calculate_efs`.
-- Use the MTP with LAMMPS.
-- Use the trained MTP as the starting point for MTP pruning.
-- Repeat the training process with a different dataset or different MTP level.
-
-The key workflow demonstrated in this tutorial is:
-
-```
-Your dataset
-     |
-     v
-MTP template
-     |
-     v
-mlp train
-     |
-     v
-Trained MTP
-     |
-     +------> calculate_efs
-     |
-     +------> LAMMPS
-     |
-     +------> MTP pruning
-```
