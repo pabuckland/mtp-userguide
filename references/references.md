@@ -68,6 +68,3 @@ Practical examples of MTP applied to simulations, including input file structure
 ```text
   https://www.lammps.org/
 ```
----
-# Related Tutorial
-- **Potential Pruning Tutorial** — *link/citation to be added*
