@@ -1,6 +1,4 @@
 # References
-## Overview
-This page collects the external documentation, software, and repositories referenced throughout the MTP User Guide. Use it as a quick-access index rather than searching back through individual tutorials.
 ---
 # Digital Research Alliance of Canada (DRAC)
 - **DRAC Account & Documentation**
