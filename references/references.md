@@ -69,15 +69,5 @@ Practical examples of MTP applied to simulations, including input file structure
   https://www.lammps.org/
 ```
 ---
-# Git
-- **Git Official Site**
-```text
-  https://git-scm.com/
-```
-- **Git Documentation**
-```text
-  https://git-scm.com/doc
-```
----
 # Related Tutorial
 - **Potential Pruning Tutorial** — *link/citation to be added*
