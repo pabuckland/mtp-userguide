@@ -2,7 +2,7 @@
 
 A screen-recording walkthrough of the [MTP Training Workflow](./mtp-training-workflow.md).
 
-[![MTP Training Walkthrough](https://img.youtube.com/vi/ItgItXSK3zY/0.jpg)](https://youtu.be/ItgItXSK3zY)
+[![MTP Training Walkthrough](https://img.youtube.com/vi/8cgYKXz4ess/0.jpg)](https://youtu.be/8cgYKXz4ess)
 
 Click the thumbnail above to watch on YouTube.
 
