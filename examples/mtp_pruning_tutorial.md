@@ -1,6 +1,9 @@
-# MTP Pruning Workflow (Trillium / Alliance Canada)
+````markdown
+# MTP Pruning Tutorial
 
 This tutorial walks through training and pruning a Moment Tensor Potential (MTP) using the `mlip-3-prune` fork, on a SLURM cluster (Trillium).
+
+This tutorial builds on the [MTP Training Workflow](./mtp-training-workflow.md) — refer to that tutorial for the general explanation of the training command, job submission, and login-node vs. compute-node behavior. This page focuses on what's specific to pruning.
 
 ## Prerequisites
 
@@ -10,7 +13,7 @@ This tutorial walks through training and pruning a Moment Tensor Potential (MTP)
 - An MTP potential template. Blank/untrained templates for levels 6–28 live at:
   `/home/<user>/links/scratch/mlip-3-prune/MTP_templates/<level>.almtp`
 
-> **Note:** all commands below must run on a **compute node**, not the login node — the `mlp`/`mlp_prune` binaries use MPI/InfiniBand and are blocked on login nodes. Use `debugjob` for quick tests (60 min cap) and `sbatch` for real runs (training and pruning both take longer than that).
+> **Note:** all commands below must run on a **compute node**, not the login node (see the Training tutorial for why). Use `debugjob` for quick tests (60 min cap) and `sbatch` for real runs.
 
 ---
 
@@ -20,15 +23,15 @@ If you do not already have a training dataset, the following dataset is recommen
 
 **Unified_training_set2_1159.cfg**
 
-The dataset is provided by the MTPu project and can be found here:
+Provided by the MTPu project:
 
 https://gitlab.com/Kazongogit/MTPu/-/blob/main/datasets/Unified_training_set2_1159.cfg?ref_type=headsis
 
-This is an MLIP `.cfg` dataset containing 1159 structures and can be used as an example dataset for training and pruning an MTP.
+An MLIP `.cfg` dataset containing 1159 structures.
 
 ### Download the dataset
 
-From the Trillium login node, download the dataset directly into your working directory:
+From the Trillium login node:
 
 ```bash
 mkdir -p ~/scratch/my-run/data
@@ -38,63 +41,36 @@ wget -O data/training_set.cfg \
 "https://gitlab.com/Kazongogit/MTPu/-/raw/main/datasets/Unified_training_set2_1159.cfg"
 ```
 
-Check that the file was downloaded:
-
-```bash
-ls -lh data/training_set.cfg
-```
-
-The rest of this tutorial refers to the dataset as:
-
-```bash
-data/training_set.cfg
-```
+The rest of this tutorial refers to the dataset as `data/training_set.cfg`.
 
 ---
 
-## 1. Set up your working folder
+## 1. Set Up Your Working Folder
 
 ```bash
 mkdir -p ~/scratch/my-run/data
 cd ~/scratch/my-run
-```
 
-Copy in your potential template and training set:
-
-```bash
 cp /home/<user>/links/scratch/mlip-3-prune/MTP_templates/18.almtp data/18_template.almtp
 cp /path/to/your/training_set.cfg data/
 ```
 
-## 2. Match the template's species count to your dataset
+## 2. Match the Template's Species Count
 
-Templates ship with a placeholder `species_count` — you must edit it to match the number of distinct atom types in your `.cfg` file.
+As in the Training tutorial, the template's `species_count` must match the number of distinct atom types in your `.cfg` file, or `extract_problem`/`prune` will fail with `Atomic number 1 is not present in the MTP potential!`.
 
-Check how many species are in your training set:
 ```bash
 grep -oE "^\s*[0-9]+\s+[0-9]+" data/training_set.cfg | awk '{print $2}' | sort -u
-```
-
-Check the template's current value:
-```bash
 grep species_count data/18_template.almtp
+sed -i 's/species_count = 1/species_count = 2/' data/18_template.almtp   # only if it needs changing
 ```
 
-If they don't match, edit it (example: 1 → 2 species):
+## 3. Train the Potential
+
+A freshly edited template has no fitted parameters yet — it must be trained before it can be pruned. Use the same `mlp train` process as the [Training tutorial](./mtp-training-workflow.md), pointed at this working folder:
+
 ```bash
-sed -i 's/species_count = 1/species_count = 2/' data/18_template.almtp
-```
-
-> Running `extract_problem` or `prune` with a mismatched species count fails with:
-> `Rank 0, Atomic number 1 is not present in the MTP potential!`
-
-## 3. Train the potential
-
-A freshly edited template has no fitted parameters yet — it must be trained on your `.cfg` data before it can be pruned. This takes over an hour for a real dataset, so submit it as a batch job.
-
-Create `train_job.sh`:
-```bash
-cat > train_job.sh << 'EOF'
+cat > train_job.sh << 'JOBEOF'
 #!/bin/bash
 #SBATCH --account=def-belandl1
 #SBATCH --time=03:00:00
@@ -111,32 +87,23 @@ srun -n 1 /home/<user>/links/projects/def-belandl1/shared/mtp/bin/mlp train \
     --save_to=out/18_trained.almtp \
     --iteration_limit=100 \
     --al_mode=nbh
-EOF
+JOBEOF
 mkdir -p out
 sbatch train_job.sh
 ```
 
-> **Trillium-specific:** don't set `#SBATCH --mem=...` — this cluster schedules whole nodes and rejects memory requests. Also, `sbatch` must be run **from the login node**, not from inside a `debugjob`/compute-node session.
+> **Trillium-specific:** don't set `#SBATCH --mem=...` — this cluster schedules whole nodes and rejects memory requests.
 
-Check progress:
-```bash
-squeue -u <user>
-```
-When the job disappears from the queue, it's done. Confirm the output exists:
-```bash
-ls -la out/18_trained.almtp
-```
+Once `squeue -u <user>` shows the job is done, confirm the output exists: `ls -la out/18_trained.almtp`.
 
-## 4. Extract the pruning problem (`xtwx.bin`, `xtwy.bin`, `yTWy`, neighbor count)
+## 4. Extract the Pruning Problem
 
-This step builds the matrices `prune` needs, and prints two values you'll copy into `config.json`.
+This step builds the matrices `prune` needs (`xtwx.bin`, `xtwy.bin`), and prints two values you'll copy into `config.json`. It's fast, so a `debugjob` is enough:
 
-Get a quick debug allocation (this step is fast, no need for `sbatch`):
 ```bash
 debugjob
 ```
 
-Run:
 ```bash
 srun -n 1 /home/<user>/links/projects/def-belandl1/shared/mtp/bin/mlp_prune extract_problem \
     out/18_trained.almtp data/training_set.cfg data/xtwx.bin data/xtwy.bin
@@ -154,7 +121,7 @@ Copy those two numbers — you need them for the next step.
 ## 5. Write `config.json`
 
 ```bash
-cat > config.json << 'EOF'
+cat > config.json << 'CFGEOF'
 {
   "mtp_file": "out/18_trained.almtp",
   "pop_size": 1152,
@@ -178,7 +145,7 @@ cat > config.json << 'EOF'
   "out_dir": "out",
   "restart_from": ""
 }
-EOF
+CFGEOF
 ```
 
 Field notes:
@@ -190,13 +157,12 @@ Field notes:
 | `pop_size` / `n_gen` / `time` | NSGA-II population size, generation cap, and wall-clock cap (seconds) — tune to taste |
 | `restart_from` | leave `""` unless resuming a previous prune run |
 
-## 6. Run pruning
+## 6. Run Pruning
 
-Longer than a debug allocation allows — submit as a batch job.
+Longer than a debug allocation allows — submit as a batch job (from the login node — `exit` first if you're still in a `debugjob` session):
 
-Create `prune_job.sh`:
 ```bash
-cat > prune_job.sh << 'EOF'
+cat > prune_job.sh << 'PRUNEEOF'
 #!/bin/bash
 #SBATCH --account=def-belandl1
 #SBATCH --time=01:30:00
@@ -209,18 +175,11 @@ export OMP_NUM_THREADS=1
 export MKL_NUM_THREADS=1
 
 srun -n 1 /home/<user>/links/projects/def-belandl1/shared/mtp/bin/mlp_prune prune config.json
-EOF
+PRUNEEOF
 sbatch prune_job.sh
 ```
 
-> Run `sbatch` from the **login node**. If you're inside a `debugjob` session from a previous step, `exit` first.
-
-Check progress:
-```bash
-squeue -u <user>
-```
-
-## 7. Read the results
+## 7. Read the Results
 
 Once the job finishes, look for a new timestamped output folder:
 ```bash
@@ -239,7 +198,7 @@ cat out_<timestamp>/pareto_final_objectives.csv
 ```
 Column 1 and 2 are your two optimization objectives (e.g. pruned model size/complexity vs. fit error ratio) — low column 1 + high column 2 means aggressive pruning at the cost of accuracy; the curve shows the full range of that trade-off.
 
-## 8. Download results to your local machine
+## 8. Download Results to Your Local Machine
 
 From your **local** terminal (not the cluster):
 ```bash
@@ -251,11 +210,11 @@ Or use your editor's remote file browser (e.g. VS Code Remote-SSH → right-clic
 
 ## Troubleshooting
 
+For general login-node/InfiniBand errors (`UD QP`, `unknown link speed`) and `sbatch`-from-compute-node issues, see the [Training tutorial's troubleshooting table](./mtp-training-workflow.md#13-troubleshooting) — the same fixes apply here. Pruning-specific issues:
+
 | Symptom | Cause / Fix |
 |---|---|
-| `Failed to modify UD QP to INIT on mlx5_0: Operation not permitted` | You're on the login node — MPI/InfiniBand is blocked there. Use `debugjob` or `sbatch`. |
-| `unknown link speed 0x80`, `OpenFabrics device` warnings | Harmless noise from Open MPI probing network hardware. Safe to ignore. |
 | `Error: command prune does not exist.` | You ran `mlp` instead of `mlp_prune`. Only the pruning fork has `prune`/`extract_problem`. |
 | `Rank 0, Atomic number 1 is not present in the MTP potential!` | Potential's `species_count` doesn't match the training set — see Step 2. |
-| `Job submission for the partition compute cannot be done from this node...` | You tried `sbatch` from inside a compute-node session. `exit` back to the login node first. |
 | `SBATCH ERROR: The --mem=... request is not allowed...` | Trillium schedules whole nodes only — remove any `#SBATCH --mem=` line. |
+````
