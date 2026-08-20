@@ -136,6 +136,7 @@ sbatch train_job.sh
 Notes:
 - `--iteration_limit=100` is fine for demonstrating the workflow; increase it for a production-quality MTP.
 - `--al_mode=nbh` enables neighborhood-based active learning.
+- Check on the job's status with `squeue -u <user>`. Once it no longer appears in the list, it has finished (either completed or failed).
 
 ## 9. Confirm the Trained MTP Was Created
 
