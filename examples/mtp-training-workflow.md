@@ -17,9 +17,11 @@ This is separate from the MTP pruning workflow: it covers taking a training data
 
 ## 1. Set Up the Directory
 
+> **Important:** use `~/links/scratch/...`, not `~/scratch/...`. On Trillium, `~/links/scratch` is a symlink to your real, compute-node-writable `$SCRATCH` (e.g. `/scratch/<user>`). A plain `~/scratch` folder lives inside your home directory, which is **read-only on compute nodes** — SLURM jobs will fail trying to write output there.
+
 ```bash
-mkdir -p ~/scratch/mtp-training-example/data
-cd ~/scratch/mtp-training-example
+mkdir -p ~/links/scratch/mtp-training-example/data
+cd ~/links/scratch/mtp-training-example
 ```
 
 ## 2. Add Your Training Dataset
@@ -199,6 +201,7 @@ The MTP trained in this tutorial can be used as the input for the pruning tutori
 | `Atomic number ... is not present in the MTP potential` | Template's `species_count` doesn't match the dataset (step 6). |
 | `out/18_trained.almtp` missing | Check `train_<jobid>.out`; confirm the SLURM job completed. |
 | `sbatch` submission error | Run `sbatch` from the login node, not from inside `debugjob`. |
+| `Job output requested to be written to file ... which is read-only on the compute nodes` | Your working directory is under plain `~/scratch`, not `~/links/scratch` (real `$SCRATCH`). Move your working directory under `~/links/scratch/...` — see step 1. |
 | Training slower than expected | Increase SLURM wall time and/or adjust `--iteration_limit`. |
 
 **Note on `mlp convert`:** not needed if your data is already `.cfg`. It requires both filenames: `mlp convert [options] inputfilename outputfilename` (e.g. `mlp convert --input_format=outcar OUTCAR out/relax.cfg`). Running `mlp convert` alone is incomplete and will fail.
