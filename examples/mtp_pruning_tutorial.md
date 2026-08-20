@@ -1,4 +1,3 @@
-````markdown
 # MTP Pruning Tutorial
 
 This tutorial walks through training and pruning a Moment Tensor Potential (MTP) using the `mlip-3-prune` fork, on a SLURM cluster (Trillium).
