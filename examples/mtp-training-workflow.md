@@ -161,37 +161,7 @@ srun -n 1 /home/<user>/links/projects/def-belandl1/shared/mtp/apps/mlip-3/bin/ml
 
 This calculates MTP energies and forces for the dataset, and also confirms the potential loads correctly. Run this from a compute node, not the login node.
 
-## 11. Workflow Summary
-
-```
-Training dataset (.cfg)
-        |
-        v
-MTP template (.almtp)
-        |
-        v
-     mlp train
-        |
-        v
-Trained MTP (.almtp)
-        |
-        v
-   mlp calculate_efs
-        |
-        v
-Calculated configurations (.cfg)
-```
-
-The key output is `out/18_trained.almtp` — usable for further calculations, LAMMPS simulations, or as the input to the pruning workflow.
-
-## 12. Training vs. Pruning
-
-- **Training** uses `mlp` / `mlp train`: `Dataset → MTP template → mlp train → Trained MTP`
-- **Pruning** uses `mlp_prune` (`extract_problem`, `prune`) and starts from an already-trained MTP: `Trained MTP → extract_problem → Pruning matrices → prune → Pareto-optimal reduced MTPs`
-
-The MTP trained in this tutorial can be used as the input for the pruning tutorial.
-
-## 13. Troubleshooting
+## 11. Troubleshooting
 
 | Symptom | Cause / Fix |
 |---|---|
@@ -207,7 +177,7 @@ The MTP trained in this tutorial can be used as the input for the pruning tutori
 
 **Note on `mlp convert`:** not needed if your data is already `.cfg`. It requires both filenames: `mlp convert [options] inputfilename outputfilename` (e.g. `mlp convert --input_format=outcar OUTCAR out/relax.cfg`). Running `mlp convert` alone is incomplete and will fail.
 
-## 14. Final Directory Structure
+## 12. Final Directory Structure
 
 ```
 mtp-training-example/
